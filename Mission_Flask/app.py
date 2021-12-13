@@ -13,7 +13,7 @@ def index():
     mars_data = mongo.db.collection.find_one()
     #Display the home page
     print(f"======== {mars_data}")
-    return render_template("index.html", data = mars_data)
+    return render_template("index.html", mdata = mars_data)
 
 @app.route("/scrape")
 def scrape():

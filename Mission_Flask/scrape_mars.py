@@ -15,7 +15,8 @@ def scrape_info():
 
     #add latest news to the mars_data dict
     mars_data = {}
-    mars_data[latest_news[0]] = latest_news[1]
+    mars_data["news_title"] = latest_news[0]
+    mars_data["news_content"] = latest_news[1]
 
     #Get the featured image and add it to mars_data dict
     featured_image = get_featured_img(browser)
@@ -26,8 +27,8 @@ def scrape_info():
     mars_data[mars_facts[0]] = mars_facts[1]
 
     #Get mars facts and add it to mars_data dict
-    mars_hem_img = get_mars_hemisphere_images(browser)
-    mars_data[mars_hem_img[0]] = mars_hem_img[1]
+    hemisphere_images = get_mars_hemisphere_images(browser)
+    mars_data["mars_hemispheres"] = hemisphere_images
 
     return mars_data
 
@@ -80,7 +81,7 @@ def get_featured_img(browser):
     #construct the url for the image
     img_url = f"{url}/{img_url_rel}"
 
-    featured_image = ["Featured Image", img_url]
+    featured_image = ["featured_image", img_url]
 
     return featured_image
 
@@ -100,7 +101,7 @@ def get_mars_facts(browser):
 
     df_html = df.to_html()
 
-    mars_facts = ["Mars Facts", df_html]
+    mars_facts = ["mars_facts", df_html]
 
     return mars_facts
 
@@ -111,10 +112,11 @@ def get_mars_hemisphere_images(browser):
     url = 'https://marshemispheres.com/'
 
     browser.visit(url)
-    hemisphere_dict = {}
+    
     html = browser.html
     astro_soup = soup(html, 'html.parser')
     divs = astro_soup.find_all('div', class_='item')
+    hemisphere_images = []
     #print(links)
 
     #Loop through the divs
@@ -135,14 +137,18 @@ def get_mars_hemisphere_images(browser):
         title  = hem_soup.find('h2', class_='title').text
         
         #Get the image URL
-        image_url = hem_soup.find('a', string='Original')['href']
+        div = hem_soup.find('div', class_= 'downloads')
+        image_url = div.find('a')['href']
         full_image_url = url + image_url
-        hemisphere_dict[title] = full_image_url
+
+        hemisphere_dict = {}
+        hemisphere_dict["img_url"] = full_image_url
+        hemisphere_dict["title"] = title
+        hemisphere_images.append(hemisphere_dict)
+        
         #Click the back button on the browser
         browser.back()
         
-    hemisphere_images = ["Mars Hemispheres", hemisphere_dict]
-
     return hemisphere_images
 
 

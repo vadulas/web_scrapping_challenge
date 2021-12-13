@@ -16,6 +16,57 @@
         <p></p>
         <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data!</a></p>
       </div>
+
+      <div class="row" id="mars-news">
+        <div class="col-md-12">
+          <div class="media">
+            <div class="media-body">
+              <h2>Latest Mars News</h2>
+              <h4 class="media-heading">{{ mdata.news_title }}</h4>
+              <p>{{ mdata.news_content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- Section for Featured Image and Facts table -->
+      <div class="row" id="mars-featured-image">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+          <h2>Featured Mars Image</h2>
+          <!-- if images is False/None/non-existent, then default to error message -->
+          <img
+            src="{{mdata.featured_image}}"
+            class="img-responsive"
+            alt="Responsive image"
+          />
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <!-- Mars Facts -->
+          <div class="table" id="mars-facts">
+            <h4>Mars Facts</h4>
+            {{ mdata.mars_facts | safe }}
+          </div>
+        </div>
+      <div>
+      
+        <div class="row" id="mars-hemispheres">
+          <div class="page-header">
+            <h2 class="text-center">Mars Hemispheres</h2>
+          </div>
+          <div class="row" id="mars-images">
+            {% for hemisphere in mdata.mars_hemispheres %}
+            <div class="col-lg-3">
+              <figure class="figure">
+                <img src="{{hemisphere.img_url}}"  style="max-width:50%;" alt="" class = "img-responsive">
+                <figcaption class="figure-caption">
+                  {{hemisphere.title}}
+                </figcaption>
+              </figure>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
     </div>
    
   </body>
