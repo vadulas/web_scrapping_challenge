@@ -11,7 +11,7 @@
 
 <body>
     <div class="container-fluid">
-      <div class="jumbotron text-center">
+      <div class="btn btn-sm btn-outline-secondary">
         <h1>Mission to Mars</h1>
         <p></p>
         <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data!</a></p>
@@ -48,27 +48,45 @@
             {{ mdata.mars_facts | safe }}
           </div>
         </div>
-      <div>
-      
-        <div class="row" id="mars-hemispheres">
-          <div class="page-header">
-            <h2 class="text-center">Mars Hemispheres</h2>
-          </div>
-          <div class="row" id="mars-images">
-            {% for hemisphere in mdata.mars_hemispheres %}
-            <div class="col-lg-3">
-              <figure class="figure">
-                <img src="{{hemisphere.img_url}}"  style="max-width:50%;" alt="" class = "img-responsive">
-                <figcaption class="figure-caption">
-                  {{hemisphere.title}}
-                </figcaption>
-              </figure>
-            </div>
-            {% endfor %}
-          </div>
+        
+      <div class="box-shadow">
+        
+       <div class="container-fluid"> 
+        <div class="page-header">
+          <h2 class="text-ceter">Mars Hemispheres</h2>
         </div>
+        <div class="row">
+          {% for hemisphere in mdata.mars_hemispheres %}
+          <div class="card mb-4 box-shadow col-sm">
+            <img class="card-img-top" src="{{hemisphere.img_url}}" data-holder-rendered="true">
+            <div class="card-body">
+              <p class="card-text">{{hemisphere.title}}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+       </div>
+
+        <!--div class="container-fluid"> 
+          <div  id="mars-hemispheres">
+            <div class="page-header">
+              <h2 class="text-ceter">Mars Hemispheres</h2>
+            </div>
+            <div class="row" id="mars-images">
+              {% for hemisphere in mdata.mars_hemispheres %}
+              <div class="col-sm">
+                <figure class="figure">
+                  <img src="{{hemisphere.img_url}}"  style="max-width:50%;" alt="" class = "img-responsive">
+                  <figcaption class="figure-caption">
+                    {{hemisphere.title}}
+                  </figcaption>
+                </figure>
+              </div>
+              {% endfor %}
+            </div>-->
+          </div>
     </div>
-   
+  </div>
   </body>
 
 </html>
